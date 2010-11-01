@@ -44,6 +44,7 @@
 #include "config.h"
 #include "g2100.h"
 #include "spi.h"
+#include <avr/wdt.h>
 
 #include <string.h>
 #define BUF ((struct uip_eth_hdr *)&uip_buf[0])
@@ -108,7 +109,7 @@ void stack_init(void)
 void stack_process(void)
 {
 	int i;
-
+	wdt_reset();
 		uip_len = network_read();
 
 		if(uip_len > 0) {

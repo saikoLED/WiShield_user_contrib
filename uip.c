@@ -1154,9 +1154,9 @@ uip_process(u8_t flag)
   goto drop;
 
  udp_found:
-  if (uip_udp_conn->rport == 0) {
-    uip_udp_conn->rport = UDPBUF->srcport;
-  }
+  //  if (uip_udp_conn->rport == 0) {
+  //    uip_udp_conn->rport = UDPBUF->srcport;
+  //  }
   uip_conn = NULL;
   uip_flags = UIP_NEWDATA;
   uip_sappdata = uip_appdata = &uip_buf[UIP_LLH_LEN + UIP_IPUDPH_LEN];

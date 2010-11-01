@@ -46,8 +46,8 @@
 //#define APP_WEBSERVER
 //#define APP_WEBCLIENT
 //#define APP_SOCKAPP
-//#define APP_UDPAPP
-#define APP_WISERVER
+#define APP_UDPAPP
+//#define APP_WISERVER
 
 //
 // Add on features; uncomment to enable additional functionality
