@@ -41,6 +41,17 @@
 // (it'll save a bunch of code size and a bit of RAM too!)
 #define ENABLE_CLIENT_MODE
 
+// Enables dhcp client (so you don't have to implement the callbacks manually)
+// call dhcp_client_configure_network to configure the network via DHCP
+// UIP_DHCP must also be enabled
+#define ENABLE_DHCP_CLIENT
+
+// Enables dns client (so you don't have to implement the callbacks manually)
+// call dns_client_init with the DNS server to use and then call 
+// dns_client_resolve with a hostname to resolve
+// UIP_DNS must also be enabled
+#define ENABLE_DNS_CLIENT
+
 // If DEBUG is defined, the Serial class is used to output lots of diagnostic data
 // (verbose mode is also enabled automatically)
 // Warning: this increases RAM usage and code size and will slow execution speed

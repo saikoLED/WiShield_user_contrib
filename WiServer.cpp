@@ -44,10 +44,10 @@
 #include "WiServer.h"
 
 extern "C" {
-    #include "g2100.h"
+        #include "g2100.h"
 	#include "spi.h"
 	#include "uip.h"
-    #include "server.h"
+        #include "server.h"
 	#include "global-conf.h"
 	void stack_init(void);
 	void stack_process(void);
@@ -748,6 +748,54 @@ void Server::server_task() {
 	}
 #endif // ENABLE_CLIENT_MODE
 }
+
+
+#if defined ENABLE_DHCP_CLIENT || defined ENABLE_DNS_CLIENT
+
+// extern struct uip_udp_conn *uip_udp_conn;
+
+
+extern "C" {
+
+// Process UDP UIP_APPCALL events
+void udpapp_appcall(void)
+{
+
+#ifdef ENABLE_DHCP_CLIENT
+  uip_dhcp_run();
+#endif
+
+#ifdef ENABLE_DNS_CLIENT
+  if (uip_udp_conn->rport == HTONS(53)) {
+    if (uip_poll()) {
+      if (verbose)
+        Serial.println("Servicing DNS query: udpapp_appcall() -> uip_dns_run()");
+      uip_dns_run();
+    }
+    if (uip_newdata()) {
+      if (verbose)
+        Serial.println("Servicing DNS query: udpapp_appcall() -> uip_dns_newdata()");
+      uip_dns_newdata();
+    }
+  }
+#endif
+
+}
+
+void udpapp_init(void)
+{
+}
+
+void dummy_app_appcall(void)
+{
+}
+
+
+
+
+} // extern "C"
+
+#endif // defined ENABLE_DHCP_CLIENT || defined ENABLE_DNS_CLIENT
 
 // Single instance of the server
 Server WiServer;

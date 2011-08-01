@@ -41,9 +41,9 @@
 
 extern "C" {
 	#include "witypes.h"
+	#include "uip.h"
 	#include "server.h"
 	#include "config.h"
-	#include "uip.h"
 }
 
 #include "Print.h"
@@ -131,6 +131,10 @@ class GETrequest
 	    char* bodyPreamble;
 		// Pointer to the next request in the queue
 	    GETrequest* next;
+
+#ifdef ENABLE_DNS_CLIENT
+            bool needResolve;
+#endif
 	};
 
 
@@ -266,6 +270,31 @@ class Server: public Print
 
 // Single instance of the Server
 extern Server WiServer;
+
+
+#ifdef UIP_DHCP
+#ifdef ENABLE_DHCP_CLIENT
+
+bool dhcp_client_configure_network();
+
+#endif // ENABLE_DHCP_CLIENT
+#endif // UIP_DHCP
+
+
+#ifdef UIP_DNS
+#ifdef ENABLE_DNS_CLIENT
+
+/*
+ * Function for callback when resolving is complete
+ */
+typedef void (*dns_client_resolve_callback)(const char *name, u16_t *ipaddr, void *data);
+
+void dns_client_init(u16_t *server);
+void dns_client_resolve(char *name, dns_client_resolve_callback callback, void *data);
+
+#endif // ENABLE_DNS_CLIENT
+#endif // UIP_DNS
+
 
 
 
