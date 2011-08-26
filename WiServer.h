@@ -40,10 +40,10 @@
 #define WISERVER_H_
 
 extern "C" {
-	#include "witypes.h"
-	#include "uip.h"
-	#include "server.h"
-	#include "config.h"
+  #include "witypes.h"
+  #include "server.h"
+  #include "config.h"
+  #include "uip.h"
 }
 
 #include "Print.h"

@@ -89,7 +89,15 @@ typedef unsigned short uip_stats_t;
  *
  * \hideinitializer
  */
-#define UIP_CONF_BUFFER_SIZE     400
+
+/* The default of 400 bytes is too small for the full dhcp buffer */
+
+#ifdef UIP_DHCP 
+  #define UIP_CONF_BUFFER_SIZE     (548 + 14 + 28)
+#else
+  #define UIP_CONF_BUFFER_SIZE     400
+#endif
+
 /**
  * CPU byte order.
  *
@@ -138,6 +146,17 @@ typedef unsigned short uip_stats_t;
  * \hideinitializer
  */
 #define UIP_CONF_UDP_CONNS		 MAX_UDP_CONNS
+
+
+// Moved from apps-conf.h to avoid an inclusion loop
+#ifdef UIP_DHCP
+#include "uip_dhcp.h"
+#endif
+
+#ifdef UIP_DNS
+#include "uip_dns.h"
+#endif
+
 
 #endif /* __UIP_CONF_H__ */
 

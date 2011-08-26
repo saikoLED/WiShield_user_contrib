@@ -44,7 +44,7 @@
 // Enables dhcp client (so you don't have to implement the callbacks manually)
 // call dhcp_client_configure_network to configure the network via DHCP
 // UIP_DHCP must also be enabled
-#define ENABLE_DHCP_CLIENT
+// #define ENABLE_DHCP_CLIENT
 
 // Enables dns client (so you don't have to implement the callbacks manually)
 // call dns_client_init with the DNS server to use and then call 

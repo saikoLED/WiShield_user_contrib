@@ -54,7 +54,7 @@
 // Add on features; uncomment to enable additional functionality
 //
 #define UIP_DNS                  // Add DNS capabilities - APP_UDPAPP must be defined!
-#define UIP_DHCP                 // Add DHCP capabilities - APP_UDPAPP must be defined!
+// #define UIP_DHCP                 // Add DHCP capabilities - APP_UDPAPP must be defined!
 //#define UIP_SCAN                 // Add Access Point scan capabilities
 
 //
@@ -99,14 +99,6 @@
 
 #ifdef APP_WISERVER
 #include "server.h"
-#endif
-
-#ifdef UIP_DHCP
-#include "uip_dhcp.h"
-#endif
-
-#ifdef UIP_DNS
-#include "uip_dns.h"
 #endif
 
 #endif /*__APPS_CONF_H__*/

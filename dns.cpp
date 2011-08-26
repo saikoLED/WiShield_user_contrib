@@ -11,7 +11,7 @@
 #ifdef UIP_DNS
 #ifdef ENABLE_DNS_CLIENT
 
-#define MAX_CONCURRENT_QUERIES  10
+#define MAX_CONCURRENT_QUERIES  4
 
 // Piggyback off of WiServer's verbose logging variable
 extern boolean verbose;
