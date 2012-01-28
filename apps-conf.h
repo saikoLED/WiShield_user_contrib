@@ -43,7 +43,7 @@
 //   APP_UDPAPP is used for UDP only apps as well as DNS and DHCP apps; if your app will use
 //   DNS and/or DHCP then your APP_TYPE (e.g. APP_WISERVER) AND APP_UDPAPP must be defined (uncommented).
 //
-//#define APP_WEBSERVER
+#define APP_WEBSERVER
 //#define APP_WEBCLIENT
 //#define APP_SOCKAPP
 #define APP_UDPAPP
