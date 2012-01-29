@@ -53,7 +53,7 @@
 //
 // Add on features; uncomment to enable additional functionality
 //
-#define UIP_DNS                  // Add DNS capabilities - APP_UDPAPP must be defined!
+//#define UIP_DNS                  // Add DNS capabilities - APP_UDPAPP must be defined!
 // #define UIP_DHCP                 // Add DHCP capabilities - APP_UDPAPP must be defined!
 //#define UIP_SCAN                 // Add Access Point scan capabilities
 
