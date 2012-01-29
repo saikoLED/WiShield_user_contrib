@@ -41,7 +41,13 @@
 #include <avr/sfr_defs.h>
 
 #include "clock-arch.h"
-#include "wiring.h"
+
+
+#if defined(ARDUINO) && ARDUINO >= 100
+  #include "Arduino.h"
+#else
+  #include "wiring.h"
+#endif
 
 #if 0
 //Counted time

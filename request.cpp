@@ -41,7 +41,15 @@ char twitterURL[] = {"/statuses/update.xml"};
 
 GETrequest::GETrequest(uint8* ipAddr, int port, char* hostName, char* URL) {
 	// Store IP address using the uIP type
-	uip_ipaddr(this->ipAddr, ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
+ 
+        if (ipAddr != NULL) {
+  	  uip_ipaddr(this->ipAddr, ipAddr[0], ipAddr[1], ipAddr[2], ipAddr[3]);
+        } else {
+#ifdef ENABLE_DNS_CLIENT
+        this->needResolve = true;
+#endif // ENABLE_DNS_CLIENT
+        }
+
 	// Store port in network order
 	this->port = htons(port);
 	// Store host name and URL
@@ -69,7 +77,29 @@ void GETrequest::setURL(char* URL) {
 	if (!this->active) this->URL = URL;
 }
 
-void GETrequest::submit() {	
+
+#ifdef ENABLE_DNS_CLIENT
+
+void get_request_dns_callback(const char *name, u16_t *ipaddr, void *data) {
+  GETrequest *r = (GETrequest *)data;
+
+  uip_ipaddr_copy(r->ipAddr, ipaddr);
+  r->needResolve = false;
+  r->submit();
+}
+
+#endif // ENABLE_DNS_CLIENT
+
+void GETrequest::submit() {
+
+#ifdef ENABLE_DNS_CLIENT
+        // need to resolve it
+        if (this->needResolve) {
+          dns_client_resolve(this->hostName, get_request_dns_callback, this);
+          return;
+        }
+#endif // ENABLE_DNS_CLIENT
+
 	// Ignore submit request if already active
 	if (!this->active) WiServer.submitRequest(this);
 }
